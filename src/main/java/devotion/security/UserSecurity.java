@@ -1,4 +1,4 @@
-package devotion;
+package devotion.security;
 
 import devotion.entity.User;
 import lombok.AllArgsConstructor;

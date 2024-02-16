@@ -1,6 +1,6 @@
 package devotion.service;
 
-import devotion.UserSecurity;
+import devotion.security.UserSecurity;
 import devotion.entity.User;
 import devotion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
