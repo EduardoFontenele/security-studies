@@ -29,7 +29,9 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new SimpleGrantedAuthority("read"));
+        return user.getAuthorities().stream()
+                .map(AuthoritySecurity::new)
+                .toList();
     }
 
     @Override

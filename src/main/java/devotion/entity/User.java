@@ -32,6 +32,5 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Authority> authorities;
 }
