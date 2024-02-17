@@ -1,18 +1,16 @@
-package devotion.controller.config.security.authenticati0n;
+package devotion.config.security.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@SuppressWarnings("ALL")
-public class CustomAuthentication implements Authentication {
+@SuppressWarnings("all")
+public class HeaderAuthentication implements Authentication {
 
     private final boolean authenticated;
     private final String key;
@@ -41,7 +39,6 @@ public class CustomAuthentication implements Authentication {
     public Object getPrincipal() {
         return null;
     }
-
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
