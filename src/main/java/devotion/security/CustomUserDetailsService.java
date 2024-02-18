@@ -2,6 +2,7 @@ package devotion.security;
 
 import devotion.entity.UserEntity;
 import devotion.repository.UserRepository;
+import devotion.security.userDetails.UserSecurity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,10 +18,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("No such user"));
+        Optional<UserEntity> user = userRepository.findByUsername(username);
 
-
-        return null;
+        return user.map(UserSecurity::new).orElseThrow(() -> new NoSuchElementException("No such user"));
     }
 }

@@ -17,9 +17,7 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<RoleSecurity> roles = new HashSet<>();
-        RoleEntity roleEntity = userEntity.getRole();
-        return Collections.EMPTY_SET;
+        return null;
     }
 
     @Override
