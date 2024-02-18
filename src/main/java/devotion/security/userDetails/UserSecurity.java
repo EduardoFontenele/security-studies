@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -17,12 +18,13 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        RoleSecurity roleSecurity = new RoleSecurity(userEntity.getRole());
+        return Set.of(roleSecurity);
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return userEntity.getPassword();
     }
 
     @Override

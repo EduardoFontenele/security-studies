@@ -37,5 +37,14 @@ public class BootstrapConfig implements CommandLineRunner {
         admin.setRole(adminRole);
 
         userRepository.save(admin);
+
+        UserEntity user = new UserEntity();
+        RoleEntity userRole = roleRepository.findById(2).orElseThrow(() -> new NoSuchElementException("No such role present"));
+
+        user.setUsername("user");
+        user.setPassword("user");
+        user.setRole(userRole);
+
+        userRepository.save(user);
     }
 }
