@@ -32,7 +32,7 @@ public class SecurityConfig {
                     req.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
-                .addFilterBefore(apiKeyAuthenticationFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(usernamePwdAuthenticationFilter, BasicAuthenticationFilter.class)
                 .build();
     }
 

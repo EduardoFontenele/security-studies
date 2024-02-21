@@ -2,6 +2,7 @@ package devotion.security.managers;
 
 import devotion.security.providers.ApiKeyAuthenticationProvider;
 import devotion.security.providers.ProvidersContext;
+import devotion.security.providers.UsernamePwdAuthenticationProvider;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,17 @@ public class CustomAuthenticationManager implements AuthenticationManager {
 
     @Setter
     private String key;
-    private final ProvidersContext providersContext;
+    private final UsernamePwdAuthenticationProvider usernamePwdAuthenticationProvider;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         ApiKeyAuthenticationProvider apiKeyAuthenticationProvider = new ApiKeyAuthenticationProvider(key);
 
-        if(apiKeyAuthenticationProvider.supports(authentication.getClass())) {
-            return apiKeyAuthenticationProvider.authenticate(authentication);
+        if(usernamePwdAuthenticationProvider.supports(authentication.getClass())) {
+            return usernamePwdAuthenticationProvider.authenticate(authentication);
         }
 
-        return null;
+        authentication.setAuthenticated(false);
+        return authentication;
     }
 }

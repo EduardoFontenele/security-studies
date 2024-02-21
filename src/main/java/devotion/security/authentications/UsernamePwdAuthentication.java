@@ -1,6 +1,8 @@
 package devotion.security.authentications;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,16 +17,22 @@ public class UsernamePwdAuthentication implements Authentication {
     private boolean authenticated;
     private String username;
     private String password;
+    @Getter
     private final String encodedInfo;
     private Set<GrantedAuthority> rolesAndAuthorities;
+
+
+    @Override
+    public String getName() {
+        return username;
+    }
+    @Override
+    public Object getCredentials() {
+        return password;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.EMPTY_SET;
-    }
-
-    @Override
-    public Object getCredentials() {
-        return null;
     }
 
     @Override
@@ -39,16 +47,12 @@ public class UsernamePwdAuthentication implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return authenticated;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+        authenticated = isAuthenticated;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 }

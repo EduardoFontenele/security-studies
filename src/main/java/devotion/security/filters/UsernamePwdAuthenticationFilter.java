@@ -7,6 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -32,8 +34,17 @@ public class UsernamePwdAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String encodedUserInfo = authorizationHeader.substring(authorizationHeader.indexOf(" ") + 1);
-        System.out.println(encodedUserInfo);
         UsernamePwdAuthentication authentication = new UsernamePwdAuthentication(encodedUserInfo);
 
+        try {
+            Authentication result = customAuthenticationManager.authenticate(authentication);
+
+            if (result.isAuthenticated()) {
+                SecurityContextHolder.getContext().setAuthentication(result);
+                filterChain.doFilter(request, response);
+            }
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+        }
     }
 }

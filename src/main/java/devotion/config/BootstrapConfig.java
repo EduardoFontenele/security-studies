@@ -18,7 +18,7 @@ public class BootstrapConfig implements CommandLineRunner {
     }
 
     private void loadUsers() {
-        UserEntity admin = new UserEntity(null, "admin", "password");
+        UserEntity admin = new UserEntity(null, "admin", "admin");
 
         userRepository.save(admin);
     }
