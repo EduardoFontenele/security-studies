@@ -1,12 +1,14 @@
 package devotion.security.providers;
 
 import devotion.security.authentications.ApiKeyAuthentication;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ApiKeyAuthenticationProvider implements AuthenticationProvider {
 
     private final String key;

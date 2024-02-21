@@ -17,22 +17,18 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Value("${key.secret}")
-    private String key;
-
     private final UsernamePwdAuthenticationFilter usernamePwdAuthenticationFilter;
     private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        apiKeyAuthenticationFilter.setKey(key);
-
         return httpSecurity
                 .authorizeHttpRequests(req -> {
                     req.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(usernamePwdAuthenticationFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(apiKeyAuthenticationFilter, BasicAuthenticationFilter.class)
                 .build();
     }
 
