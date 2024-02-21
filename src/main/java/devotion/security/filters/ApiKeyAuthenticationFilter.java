@@ -21,9 +21,6 @@ import java.nio.file.AccessDeniedException;
 @RequiredArgsConstructor
 @Component
 public class ApiKeyAuthenticationFilter extends OncePerRequestFilter {
-
-    @Setter
-    private String key;
     private final CustomAuthenticationManager customAuthenticationManager;
 
     @Override
@@ -34,8 +31,6 @@ public class ApiKeyAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
-        customAuthenticationManager.setKey(key);
 
         ApiKeyAuthentication apiKeyAuthentication = new ApiKeyAuthentication(requestKey, false);
 
