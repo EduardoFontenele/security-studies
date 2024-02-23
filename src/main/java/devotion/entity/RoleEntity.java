@@ -20,7 +20,7 @@ public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Byte id;
+    private Integer id;
 
     @Column(columnDefinition = "VARCHAR(45) NOT NULL")
     private String name;
