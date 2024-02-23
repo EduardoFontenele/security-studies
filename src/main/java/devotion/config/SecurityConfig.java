@@ -51,13 +51,6 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.GET, "/demo/1").permitAll();
-                    req.requestMatchers(HttpMethod.GET, "/demo/2").hasAuthority("write");
-                    req.requestMatchers(HttpMethod.GET, "/demo/3").hasAuthority("read");
-                    req.requestMatchers(HttpMethod.GET, "/demo/4").hasAnyAuthority("write", "read");
-                    req.anyRequest().denyAll();
-                })
                 .build();
     }
 }
