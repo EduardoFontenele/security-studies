@@ -2,15 +2,17 @@ package devotion.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jdk.jfr.Unsigned;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,6 +30,12 @@ public class UserEntity {
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String password;
 
-    @OneToOne
-    private RoleEntity role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles;
+
+    public UserEntity(String username, String password, Set<RoleEntity> role) {
+        this.username = username;
+        this.password = password;
+        this.roles = role;
+    }
 }

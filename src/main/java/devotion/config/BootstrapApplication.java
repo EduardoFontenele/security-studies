@@ -7,8 +7,10 @@ import devotion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class BootstrapApplication implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -26,8 +29,8 @@ public class BootstrapApplication implements CommandLineRunner {
     private void loadRoles() {
         if (roleRepository.count() == 0) {
             roleRepository.saveAll(List.of(
-                    new RoleEntity(null, "ROLE_ADMIN"),
-                    new RoleEntity(null, "ROLE_USER"))
+                    new RoleEntity( "ROLE_ADMIN"),
+                    new RoleEntity("ROLE_USER"))
             );
         }
     }
@@ -37,8 +40,8 @@ public class BootstrapApplication implements CommandLineRunner {
             userRepository.save(new UserEntity(
                     null,
                     "admin",
-                    "admin",
-                    roleRepository.findById(1).orElse(new RoleEntity(10, "ROLE_ADMIN"))
+                    passwordEncoder.encode("admin"),
+                            Set.of(roleRepository.findAll().get(0))
                     ));
         }
     }
